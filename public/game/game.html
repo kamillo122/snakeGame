@@ -1,1 +1,33 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/game/script.js" defer></script>
+    <link rel="stylesheet" href="/game/style.css">
+</head>
+<body>
+    <div class="logout">
+    </div>
+    <button id="logoff">Wyloguj</button>
+    <div class="bestScore"></div>
+    <div class="container">
+        Wielkość: <input type="number" id="height"><br><br>
+        Szerokość: <input type="number" id="width"><br><br>
+        Tryb: <select id="tryb">
+            <option value="150">Łatwy</option>
+            <option value="100">Średni</option>
+            <option value="50">Trudny</option>
+        </select><br><br>
+        <input type="button" value="Graj" id="btn"><br><br><br>
+        <div class="popUp">
+            <div id="score"></div>
+            <div id="len"></div>
+        </div>
+        <canvas class="canvas">
+        </canvas>
+    </div>
+</body>
+</html>
