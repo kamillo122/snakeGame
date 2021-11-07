@@ -19,7 +19,7 @@ btn.addEventListener("click", async () => {
 		password: passwordInput.value,
 	};
 	loggingState.textContent = `Logowanie...`;
-	const res = await fetch("http://localhost:8080/login", {
+	const res = await fetch("https://kamilosnakegame.herokuapp.com/login", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -28,7 +28,7 @@ btn.addEventListener("click", async () => {
 	});
 	const response = await res.json();
 	const checkValid = async () => {
-		const res = await fetch("http://localhost:8080/check", {
+		const res = await fetch("https://kamilosnakegame.herokuapp.com/check", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -49,7 +49,7 @@ btn.addEventListener("click", async () => {
 	}
 	if (check?.auth === "ok") {
 		console.log("ok");
-		window.location.href = `http://localhost:8080/game/game.html`;
+		window.location.href = `https://kamilosnakegame.herokuapp.com/game/game.html`;
 	}
 });
 
@@ -71,7 +71,7 @@ registerBtn.addEventListener("click", async () => {
 		login: registerLogin.value,
 		password: registerPassword.value,
 	};
-	const res = await fetch("http://localhost:8080/register", {
+	const res = await fetch("https://kamilosnakegame.herokuapp.com/register", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
