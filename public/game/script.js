@@ -31,7 +31,7 @@ verifyToken();
 
 document.querySelector(
 	".logout"
-).textContent = `Zalogowany jako: ${sessionStorage.getItem("user")}`;
+).textContent = `Zalogowany jako: ${sessionStorage.getItem("user") ?? "Nie zalogowany"}`;
 
 const checkScores = async () => {
 	const data = { login: sessionStorage.getItem("user") };
@@ -49,7 +49,7 @@ const checkScores = async () => {
 const displayScore = async () => {
 	bestScores.textContent = `Ładowanie...`;
 	const scores = await checkScores();
-	const bestScore = Math.max(...scores.score);
+	const bestScore = !scores.score.length ? "Pusto tu" : Math.max(...scores.score);
 	bestScores.textContent = `Najlepszy wynik: ${bestScore}`;
 };
 
