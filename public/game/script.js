@@ -10,7 +10,7 @@ const bestScores = document.querySelector(".bestScore");
 let choosenSpeed = parseInt(trybSelect.value);
 
 const verifyToken = async () => {
-	const res = await fetch("http://localhost:8080/check", {
+	const res = await fetch("https://kamilosnakegame.herokuapp.com/check", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -20,7 +20,7 @@ const verifyToken = async () => {
 	});
 	const response2 = await res.json();
 	if (response2?.error) {
-		window.location.href = `http://localhost:8080/game.html`;
+		window.location.href = `https://kamilosnakegame.herokuapp.com`;
 	} else {
 		displayScore();
 	}
@@ -35,7 +35,7 @@ document.querySelector(
 
 const checkScores = async () => {
 	const data = { login: sessionStorage.getItem("user") };
-	const res = await fetch("http://localhost:8080/score", {
+	const res = await fetch("https://kamilosnakegame.herokuapp.com/score", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -175,7 +175,7 @@ btn.addEventListener("click", () => {
 			score: points,
 			snakeLength: snakeSegments.length,
 		};
-		const res = await fetch("http://localhost:8080/game", {
+		const res = await fetch("https://kamilosnakegame.herokuapp.com/game", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
