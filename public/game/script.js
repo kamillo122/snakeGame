@@ -54,7 +54,7 @@ const displayScore = async () => {
 };
 
 logoff.addEventListener("click", () => {
-	window.location.href = `http://localhost:8080`;
+	window.location.href = `https://kamilosnakegame.herokuapp.com`;
 	sessionStorage.removeItem("auth");
 	sessionStorage.removeItem("user");
 });
