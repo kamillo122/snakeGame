@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv").config();
 const path = require("path");
 const { MongoClient } = require("mongodb");
-const { networkInterfaces } = require("os");
 const uri =
 	"mongodb+srv://AdminKamilo:I1udrg12@cluster0.8from.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const app = express();
@@ -37,7 +36,7 @@ const authenticateToken = (req, res, next) => {
 		if (err) {
 			return res.send({ error: "auth" });
 		}
-		app.use(express.static(path.join(__dirname, "public/game")));
+		res.sendFile(path.join(__dirname, "public/game.html"));
 		res.send({
 			auth: "ok",
 		});
@@ -124,7 +123,7 @@ app.post("/register", async (req, res) => {
 			const insert = await collection.insertOne({
 				login: login,
 				password: password,
-				score: [],
+				score: ["0"],
 			});
 			if (insert) {
 				res.send({
@@ -221,4 +220,36 @@ app.get("/game.html", authenticateToken, (req, res) => {
 
 app.get("/game/game.html", authenticateToken, (req, res) => {
 	res.send({ auth: ok });
+});
+
+app.get("/dashboard", async (req, res) => {
+	const clientDb = await MongoClient.connect(uri, {
+		useNewUrlParser: true,
+	}).catch((err) => {
+		console.log(err);
+	});
+	if (!clientDb) {
+		res.send({
+			error: "Database error connecting!",
+		});
+	}
+	try {
+		const dashboard = [];
+		const db = await clientDb.db("snake");
+		const col = await db.collection("snakePlayers");
+		const find = await col.find().limit(10).toArray();
+		for (const player of find) {
+			dashboard.push({
+				login: player.login,
+				bestScore: Math.max(...player.score) ?? "0",
+			});
+		}
+		res.send({
+			dashboard: dashboard,
+		});
+	} catch (err) {
+		console.log(err);
+	} finally {
+		await clientDb?.close();
+	}
 });
