@@ -6,3 +6,16 @@
 .registerDiv {
     display: none;
 }
+
+.dashboard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+table, th, td {
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+  }
