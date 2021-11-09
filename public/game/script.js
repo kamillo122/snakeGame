@@ -10,7 +10,7 @@ const bestScores = document.querySelector(".bestScore");
 let choosenSpeed = parseInt(trybSelect.value);
 
 const verifyToken = async () => {
-	const res = await fetch("https://kamilosnakegame.herokuapp.com/check", {
+	const res = await fetch("http://localhost:8080/check", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -18,24 +18,24 @@ const verifyToken = async () => {
 		},
 		body: JSON.stringify({ data: sessionStorage.getItem("user") }),
 	});
+
 	const response2 = await res.json();
 	if (response2?.error) {
-		window.location.href = `https://kamilosnakegame.herokuapp.com`;
+		window.location.href = `http://localhost:8080`;
 	} else {
 		displayScore();
 	}
-	return response2;
 };
 
 verifyToken();
 
-document.querySelector(
-	".logout"
-).textContent = `Zalogowany jako: ${sessionStorage.getItem("user") ?? "Nie zalogowany"}`;
+document.querySelector(".logout").textContent = `Zalogowany jako: ${
+	sessionStorage.getItem("user") ?? "Nie zalogowany"
+}`;
 
 const checkScores = async () => {
 	const data = { login: sessionStorage.getItem("user") };
-	const res = await fetch("https://kamilosnakegame.herokuapp.com/score", {
+	const res = await fetch("http://localhost:8080/score", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -49,12 +49,14 @@ const checkScores = async () => {
 const displayScore = async () => {
 	bestScores.textContent = `Ładowanie...`;
 	const scores = await checkScores();
-	const bestScore = !scores.score.length ? "Pusto tu" : Math.max(...scores.score);
+	const bestScore = !scores.score.length
+		? "Pusto tu"
+		: Math.max(...scores.score);
 	bestScores.textContent = `Najlepszy wynik: ${bestScore}`;
 };
 
 logoff.addEventListener("click", () => {
-	window.location.href = `https://kamilosnakegame.herokuapp.com`;
+	window.location.href = `http://localhost:8080`;
 	sessionStorage.removeItem("auth");
 	sessionStorage.removeItem("user");
 });
@@ -64,16 +66,19 @@ trybSelect.addEventListener("input", () => {
 });
 
 btn.addEventListener("click", () => {
+	document.querySelector(".container").style.display = "none";
 	const widthInput = document.querySelector("#width");
 	const heightInput = document.querySelector("#height");
-	let points = 0;
 	let start = false;
+	let points = 0;
 	if (!widthInput.value || !heightInput.value) {
 		return alert("Podaj dane!");
 	}
 	canvas.height = heightInput.value;
 	canvas.width = widthInput.value;
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.fillStyle = "green";
+	canvas.style.display = "block";
 	endDiv.style.display = "none";
 	btn.value = "Graj";
 	const sizeContainer = {
@@ -165,24 +170,30 @@ btn.addEventListener("click", () => {
 		}
 	};
 	const displayEndGame = async () => {
+		document.querySelector(".container").style.display = "block";
 		displayScore();
 		endDiv.style.display = "block";
 		btn.value = "Graj ponownie!";
 		scoreDiv.textContent = `Wynik: ${points}`;
 		lenDiv.textContent = `Długość: ${snakeSegments.length}`;
+		const div = document.createElement("div");
+		div.style.background = "red";
+		div.style.width = "100px";
+		div.style.zIndex = "999";
+		div.style.height = "100px";
+		canvas.appendChild(div);
 		const data = {
 			login: sessionStorage.getItem("user"),
 			score: points,
 			snakeLength: snakeSegments.length,
 		};
-		const res = await fetch("https://kamilosnakegame.herokuapp.com/game", {
+		fetch("http://localhost:8080/game", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(data),
 		});
-		console.log(res);
 	};
 	const checkIfCrash = () => {
 		for (let i = 3; i < snakeSegments.length; i++) {
@@ -205,7 +216,6 @@ btn.addEventListener("click", () => {
 				return displayEndGame();
 			}
 			document.addEventListener("keydown", changeDirection);
-			console.log(checkIfCrash());
 			if (start) {
 				autoMoving();
 			}
