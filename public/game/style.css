@@ -1,13 +1,27 @@
+body {
+    background: #215f00;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #e4e4d9, #215f00);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #e4e4d9, #215f00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
 .container {
     text-align: center;
 }
 
 .popUp {
+    display: none;
     width: 250px;
     height: 150px;
-    display: block;
-    margin-left: auto;
+    border: 3px solid black;
     margin-right: auto;
-    text-align: center;
+    margin-left: auto;
+}
+
+.canvas {
     display: none;
+    background-color: black;
+    margin-right: auto;
+    margin-left: auto;
+    border: 3px solid green;
 }
