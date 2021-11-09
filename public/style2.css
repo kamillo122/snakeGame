@@ -1,6 +1,21 @@
+body {
+    background: #616161; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #616161, #9bc5c3); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #616161, #9bc5c3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.about {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-left: 50px;
+}
+
 .login {
     text-align: center;
-    padding: 5px;
+    padding: 10px;
+    margin-top: 30px;
+    font-size: 20px;
 }
 
 .registerDiv {
@@ -10,12 +25,27 @@
 .dashboard {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: right;
+}
+
+.about span {
+    font-size: 18px;
 }
 
 table, th, td {
     text-align: center;
-    border: 1px solid black;
+    border: 3px solid black;
     border-collapse: collapse;
-    padding: 10px;
-  }
+    padding: 15px;
+    margin: 15px;
+}
+
+
+input {
+    height: 30px;
+    border-radius: 10px;
+}
+
+button {
+    border-radius: 10px;
+}
