@@ -171,7 +171,6 @@ btn.addEventListener("click", () => {
 	};
 	const displayEndGame = async () => {
 		document.querySelector(".container").style.display = "block";
-		displayScore();
 		endDiv.style.display = "block";
 		btn.value = "Graj ponownie!";
 		scoreDiv.textContent = `Wynik: ${points}`;
