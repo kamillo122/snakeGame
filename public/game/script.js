@@ -187,13 +187,19 @@ btn.addEventListener("click", () => {
 			score: points,
 			snakeLength: snakeSegments.length,
 		};
-		fetch("https://kamilosnakegame.herokuapp.com/gameData", {
+		const res = await fetch("http://localhost:8080/gameData", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(data),
 		});
+		const json = await res.json();
+		if (json.update === "ok") {
+			displayScore();
+		} else {
+			console.log("Update data error!");
+		}
 	};
 	const checkIfCrash = () => {
 		for (let i = 3; i < snakeSegments.length; i++) {
