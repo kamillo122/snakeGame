@@ -19,7 +19,7 @@ btn.addEventListener("click", async () => {
 		password: passwordInput.value,
 	};
 	loggingState.textContent = `Logowanie...`;
-	const res = await fetch("https://kamilosnakegame.herokuapp.com/login", {
+	const res = await fetch("http://localhost:8080/login", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -28,7 +28,7 @@ btn.addEventListener("click", async () => {
 	});
 	const response = await res.json();
 	const checkValid = async () => {
-		const res = await fetch("https://kamilosnakegame.herokuapp.com/check", {
+		const res = await fetch("http://localhost:8080/check", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -49,12 +49,13 @@ btn.addEventListener("click", async () => {
 	}
 	if (check?.auth === "ok") {
 		console.log("ok");
-		window.location.href = `https://kamilosnakegame.herokuapp.com/game/game.html`;
+		window.location.href = `http://localhost:8080/game/game.html`;
 	}
 });
 
 btnRegistry.addEventListener("click", () => {
 	divRegistry.style.display = "block";
+	document.querySelector(".hideLogin").style.display = "none";
 	setInterval(() => {
 		increament++;
 	}, 1000);
@@ -64,6 +65,9 @@ registerBtn.addEventListener("click", async () => {
 	if (registerLogin.value === "" || registerPassword.value === "") {
 		return alert("Podaj dane!");
 	}
+	if (registerLogin.value.length < 4 || registerPassword.value < 5) {
+		return alert("Za krótki login lub hasło");
+	}
 	if (increament < 3) {
 		return alert("Powtórz");
 	}
@@ -71,7 +75,7 @@ registerBtn.addEventListener("click", async () => {
 		login: registerLogin.value,
 		password: registerPassword.value,
 	};
-	const res = await fetch("https://kamilosnakegame.herokuapp.com/register", {
+	const res = await fetch("http://localhost:8080/register", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -79,9 +83,10 @@ registerBtn.addEventListener("click", async () => {
 		body: JSON.stringify(data),
 	});
 	const response = await res.json();
-	if (response.ok === 1) {
+	if (response.ok) {
 		sessionStorage.setItem("auth", response?.token);
 		displayData.textContent = `Brawo! Możesz się zalogować!`;
+		document.querySelector(".hideLogin").style.display = "block";
 		divRegistry.style.display = "none";
 	} else {
 		displayData.textContent = `Login zajęty!`;
