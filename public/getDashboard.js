@@ -2,7 +2,7 @@ const dashBoard = document.querySelector(".dashboard");
 const table = document.querySelector("table");
 
 const displayDashboard = async () => {
-	const res = await fetch("http://localhost:8080/dashboard");
+	const res = await fetch("https://kamilosnakegame.herokuapp.com/dashboard");
 	const dash = await res.json();
 	const sorted = dash.dashboard.sort((a, b) => {
 		const scoreA = a.bestScore;
