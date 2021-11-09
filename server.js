@@ -36,7 +36,6 @@ const authenticateToken = (req, res, next) => {
 		if (err) {
 			return res.send({ error: "auth" });
 		}
-		res.sendFile(path.join(__dirname, "public/game.html"));
 		res.send({
 			auth: "ok",
 		});
@@ -212,10 +211,6 @@ app.post("/score", async (req, res) => {
 
 app.post("/check", authenticateToken, (req, res) => {
 	res.sendStatus(200).end();
-});
-
-app.get("/game.html", authenticateToken, (req, res) => {
-	res.send({ auth: ok });
 });
 
 app.get("/game/game.html", authenticateToken, (req, res) => {
