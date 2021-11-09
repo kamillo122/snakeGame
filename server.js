@@ -142,7 +142,7 @@ app.post("/register", async (req, res) => {
 	}
 });
 
-app.post("/game", async (req, res) => {
+app.post("/gameData", async (req, res) => {
 	const { login, score } = req.body;
 	if (!score && !login) {
 		console.log("data error");
