@@ -186,7 +186,7 @@ btn.addEventListener("click", () => {
 			score: points,
 			snakeLength: snakeSegments.length,
 		};
-		const res = await fetch("http://localhost:8080/gameData", {
+		const res = await fetch("https://kamilosnakegame.herokuapp.com/gameData", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
