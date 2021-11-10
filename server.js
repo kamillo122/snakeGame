@@ -169,6 +169,7 @@ app.post("/gameData", async (req, res) => {
 			{ login: login },
 			{ $push: { score: score } }
 		);
+		res.send({update: "ok"});
 	} catch (err) {
 		console.log(err);
 	} finally {
