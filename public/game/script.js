@@ -183,8 +183,7 @@ btn.addEventListener("click", () => {
 		canvas.appendChild(div);
 		const data = {
 			login: sessionStorage.getItem("user"),
-			score: points,
-			snakeLength: snakeSegments.length,
+			score: points
 		};
 		const res = await fetch("https://kamilosnakegame.herokuapp.com/gameData", {
 			method: "POST",
